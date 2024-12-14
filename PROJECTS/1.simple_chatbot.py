@@ -4,6 +4,7 @@ class SimpleChatbot:
             "hello": "Hi there! How can I assist you today?",
             "how are you": "I'm just a chatbot, but thanks for asking! How can I help you?",
             "what is your name": "I am a simple chatbot created to assist you.",
+            "what is the meaning of a chatbot": "A chatbot is an artificial intelligence program designed to simulate human conversation through text or voice interactions.",
             "bye": "Goodbye! Have a great day!",
         }
 
