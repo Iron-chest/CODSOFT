@@ -1,11 +1,13 @@
 class SimpleChatbot:
     def __init__(self):
         self.responses = {
-            "hello": "Hi there! How can I assist you today?",
+            "hello": "Hello, How can I assist you today?",
+            "hi": "Hi there, What can I do for you?",
+            "what is your name": "I am a simple chatbot created to help you.",
+            "help": "Sure, You can ask me about my functions or just say 'bye' to exit.",
             "how are you": "I'm just a chatbot, but thanks for asking! How can I help you?",
-            "what is your name": "I am a simple chatbot created to assist you.",
             "what is the meaning of a chatbot": "A chatbot is an artificial intelligence program designed to simulate human conversation through text or voice interactions.",
-            "bye": "Goodbye! Have a great day!",
+            "bye": "Goodbye, Have a great day",
         }
 
     def get_response(self, user_input):
