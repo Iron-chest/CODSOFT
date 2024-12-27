@@ -109,9 +109,9 @@ I extend my gratitude to CodSoft for providing this opportunity to deepen my exp
 ## Connect with Me
 
 Feel free to explore this repository and reach out if you have any questions or suggestions:
-- [LinkedIn](https://www.linkedin.com/)
-- [Portfolio](https://promise-portfolio.com/)
-- [Hashnode Articles](https://hashnode.com/@promise)
+- [LinkedIn](https://www.linkedin.com/in/akintayo-tolani-650b73242/)
+- [Portfolio](https://mainstack.me/devopsforjesus)
+- [Hashnode Articles](https://devopsforjesus.hashnode.dev/)
 
 ---
 
