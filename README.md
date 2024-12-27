@@ -6,7 +6,7 @@ Welcome to my GitHub repository documenting the projects I worked on during my A
 
 1. [Task 1: Chatbot with Rule-Based Responses](AI_PROJECTS/1.CHATBOT_WITH_RULE_BASED_RESPONSES)
 2. [Task 2: Tic-Tac-Toe AI](AI_PROJECTS/2.TIC_TAC_TOE_AI)
-3. [Task 3: Image Captioning](#task-3-image-captioning)
+3. [Task 3: Image Captioning](AI_PROJECTS/3.IMAGE_CAPTIONING)
 4. [Task 4: Recommendation System](#task-4-recommendation-system)
 5. [Task 5: Face Detection and Recognition](#task-5-face-detection-and-recognition)
 
