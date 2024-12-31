@@ -112,11 +112,7 @@ Bot: Goodbye! Have a great day!
 - Implementation of rule-based responses using dictionaries.
 - Hands-on experience with input normalization and response matching.
 - Familiarity with Python’s interactive console programming.
-
----
-
-## Contributions
-Contributions are welcome! Feel free to fork the repository, make enhancements, and submit a pull request.
+ 
 
 
 
