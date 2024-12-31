@@ -1,113 +1,167 @@
-# Movie Recommendation System
+# Hybrid Recommendation System
 
-## Overview
-This project implements a simple movie recommendation system using collaborative filtering techniques. The recommender predicts user preferences based on past ratings and recommends movies tailored to individual tastes.
+A sophisticated recommendation engine that combines collaborative and content-based filtering approaches to provide personalized recommendations to users. This system can be used for recommending various items such as movies, books, products, or any items with user ratings and content features.
 
-### Key Features
-- **Matrix Factorization**: Utilizes latent factors to model user and movie preferences.
-- **Synthetic Data Simulation**: Generates user-movie rating data with predefined patterns for action, drama, and comedy genres.
-- **Training and Evaluation**: Supports training on user-provided datasets and evaluates performance using RMSE.
-- **Personalized Recommendations**: Provides top movie suggestions for specific users.
+## Features
 
----
+The recommendation system incorporates multiple advanced features to provide accurate and personalized recommendations:
 
-## Project Structure
-```
-📂 Movie Recommendation System
-├── data
-│   └── ratings_data.csv       # Synthetic user-movie rating data
-├── src
-│   ├── recommender.py         # Matrix factorization implementation
-│   └── data_processing.py     # Synthetic data generation
-├── notebooks
-│   └── analysis.ipynb         # Notebook for experimentation and visualization
-└── README.md                  # Project documentation
-```
+- Hybrid approach combining collaborative and content-based filtering
+- Configurable weights for different recommendation strategies
+- Sophisticated similarity metrics for both users and items
+- Rating normalization to handle different rating scales
+- Efficient handling of cold start problems for new users or items
+- Customizable number of recommendations
+- Support for item features and user ratings
 
----
+## Installation
 
-## Dependencies
-- Python >= 3.8
-- Libraries:
-  - numpy
-  - pandas
-  - scikit-learn
+To use this recommendation system, you'll need Python 3.7+ and several dependencies. You can install the required packages using pip:
 
-To install dependencies, run:
 ```bash
-pip install -r requirements.txt
+pip install numpy scipy scikit-learn
 ```
-
----
-
-## How It Works
-### Data Generation
-The system generates synthetic user-movie rating data:
-- **Users**: 100 users split into three preference groups (Action, Drama, Comedy).
-- **Movies**: 50 movies categorized by genre.
-- **Ratings**: Derived from user preferences with noise for realism.
-
-### Model Training
-Matrix Factorization is applied to learn latent factors for users and movies. The system:
-- Maps users and movies to lower-dimensional vectors.
-- Adjusts vectors iteratively to minimize prediction errors using stochastic gradient descent.
-
-### Recommendation
-For a given user, the recommender predicts ratings for all movies and ranks them. Top movies are recommended based on predicted scores.
-
----
 
 ## Usage
-### Training
-Train the recommender on the synthetic dataset:
-```python
-from src.recommender import MatrixFactorizationRecommender
 
-recommender = MatrixFactorizationRecommender(n_factors=20)
-recommender.fit(train_df)
+Here's a complete example of how to use the recommendation system:
+
+```python
+from recommender import HybridRecommender
+
+# Initialize the recommender system
+recommender = HybridRecommender(rating_weight=0.7, content_weight=0.3)
+
+# Add some user ratings
+recommender.add_user_rating("user1", "movie1", 5)
+recommender.add_user_rating("user1", "movie2", 3)
+recommender.add_user_rating("user2", "movie1", 4)
+recommender.add_user_rating("user2", "movie3", 2)
+
+# Add item features
+recommender.add_item_features("movie1", {
+    "genre": "action",
+    "year": "2020",
+    "director": "John Doe"
+})
+recommender.add_item_features("movie2", {
+    "genre": "comedy",
+    "year": "2019",
+    "director": "Jane Smith"
+})
+recommender.add_item_features("movie3", {
+    "genre": "drama",
+    "year": "2021",
+    "director": "Bob Wilson"
+})
+
+# Get recommendations for a user
+recommendations = recommender.get_recommendations("user1", n=5)
+
+# Print recommendations
+for item_id, predicted_rating in recommendations:
+    print(f"Recommended item: {item_id}, Predicted rating: {predicted_rating:.2f}")
 ```
 
-### Getting Recommendations
-Retrieve recommendations for a specific user:
+## How It Works
+
+The system uses a sophisticated hybrid approach to generate recommendations:
+
+### Collaborative Filtering Component
+
+The collaborative filtering component analyzes patterns in user ratings to find similarities between users. It:
+
+1. Calculates user similarity using correlation between rating patterns
+2. Identifies users with similar taste preferences
+3. Predicts ratings based on how similar users rated items
+4. Normalizes ratings to account for different rating scales
+
+### Content-Based Filtering Component
+
+The content-based component analyzes item features to find similar items. It:
+
+1. Processes item features to create feature vectors
+2. Calculates item similarity using Jaccard similarity
+3. Predicts ratings based on similarity to items the user has rated
+4. Considers all available item features for similarity calculation
+
+### Hybrid Combination
+
+The system combines both approaches using configurable weights:
+
+1. Gets predictions from both collaborative and content-based components
+2. Applies weights to each prediction (default: 70% collaborative, 30% content-based)
+3. Combines predictions into a final recommendation score
+4. Ranks items based on their final scores
+
+## API Reference
+
+### HybridRecommender Class
+
 ```python
-recommendations = recommender.recommend_movies(user_id=1, n_recommendations=5)
-for movie_id, predicted_rating in recommendations:
-    print(f"Movie {movie_id}: Predicted rating = {predicted_rating:.2f}")
+class HybridRecommender:
+    def __init__(self, rating_weight=0.7, content_weight=0.3):
+        """
+        Initialize the recommender system.
+        
+        Parameters:
+            rating_weight (float): Weight for collaborative filtering (0 to 1)
+            content_weight (float): Weight for content-based filtering (0 to 1)
+        """
+
+    def add_user_rating(self, user_id, item_id, rating):
+        """
+        Add a user rating to the system.
+        
+        Parameters:
+            user_id: Unique identifier for the user
+            item_id: Unique identifier for the item
+            rating: Numerical rating (e.g., 1-5)
+        """
+
+    def add_item_features(self, item_id, features):
+        """
+        Add content features for an item.
+        
+        Parameters:
+            item_id: Unique identifier for the item
+            features: Dictionary of feature names and values
+        """
+
+    def get_recommendations(self, user_id, n=5):
+        """
+        Get top N recommendations for a user.
+        
+        Parameters:
+            user_id: Unique identifier for the user
+            n: Number of recommendations to return
+            
+        Returns:
+            list: Top N recommended items with predicted ratings
+        """
 ```
 
----
+## Performance Optimization
 
-## Results
-### RMSE on Synthetic Data
-- **Training Set RMSE**: Tracked during training.
-- **Test Set RMSE**:  Measures accuracy of predictions on unseen data.
+To optimize the system's performance:
 
-### Example Recommendations
-#### Action Fan (User 1)
-- Movie 10: Predicted Rating = 4.75
-- Movie 3: Predicted Rating = 4.65
+1. Use efficient data structures for storing ratings and features
+2. Implement caching for similarity calculations
+3. Use sparse matrices for large-scale applications
+4. Normalize ratings to improve prediction accuracy
+5. Balance weights based on your specific use case
 
-#### Drama Fan (User 50)
-- Movie 20: Predicted Rating = 4.85
-- Movie 25: Predicted Rating = 4.70
+## Contributing
 
-#### Comedy Fan (User 100)
-- Movie 40: Predicted Rating = 4.90
-- Movie 45: Predicted Rating = 4.80
+Contributions are welcome! Here are some ways you can contribute to this project:
 
----
+1. Report bugs
+2. Suggest new features
+3. Add documentation
+4. Submit pull requests
 
-## Evaluation
-Test RMSE is calculated to assess the system's performance on unseen data:
-```python
-from sklearn.metrics import mean_squared_error
-rmse = np.sqrt(mean_squared_error(test_actual, test_predictions))
-print(f"Test RMSE: {rmse:.4f}")
-```
+Please feel free to open an issue or submit a pull request.
 
----
+## Contact
 
-## Contributions
-Contributions are welcome! Feel free to open issues or submit pull requests.
-
-
+For any questions or feedback, please open an issue in the GitHub repository.
