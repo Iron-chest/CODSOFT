@@ -105,9 +105,6 @@ def play_game(self):
 - Learn to implement the Minimax algorithm for decision-making.
 - Practice Python programming through a fun project.
 
-## Contributing
-Contributions are welcome! Feel free to submit a pull request or open an issue for bug fixes, improvements, or new features.
-
 ## Acknowledgments
 - This project was inspired by the desire to understand and implement game theory principles.
 
